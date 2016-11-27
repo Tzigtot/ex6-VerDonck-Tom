@@ -21,6 +21,21 @@ function getAccount (username) {
 	return matchedAccount;
 }
 
+function getAccountBalance (username) {
+	var matchedAccount;
+
+	accounts.forEach( function (internal_account) {
+		if (internal_account.username === username) {
+			matchedAccount = internal_account;
+		}
+	} );
+        console.log(matchedAccount.balance);
+	return function(){
+            return matchedAccount.balance;
+        };
+
+}
+
 function deposit (account, amount) {
   if (!isNaN(amount)){
     var newAmount = +amount;
@@ -59,7 +74,7 @@ var andrewsAccount = createAccount({
 	balance: 0
 });
 
-try{
+/*try{
  deposit(andrewsAccount, 100);
  console.log(andrewsAccount);
 }
@@ -129,4 +144,6 @@ try{
 catch (e){
  console.log(e.information);
  console.log(andrewsAccount);
-}
+}*/
+
+console.log(getAccountBalance('Andrew'));
