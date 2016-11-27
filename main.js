@@ -23,8 +23,9 @@ function getAccount (username) {
 
 function deposit (account, amount) {
   if (!isNaN(amount)){
-    if (amount >= 0){
-	account.balance += amount;
+    var newAmount = +amount;
+    if (newAmount >= 0){
+	account.balance += newAmount;
     }
     else {
         throw new Exception("Negative number");
