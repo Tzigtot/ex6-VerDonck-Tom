@@ -22,16 +22,31 @@ function getAccount (username) {
 }
 
 function deposit (account, amount) {
+  if (!isNaN(amount)){
     if (amount >= 0){
 	account.balance += amount;
     }
     else {
         throw new Exception("Negative number");
     }
+  }
+  else {
+      throw new Exception("Value is not a number");
+  }
 }
 
 function withdraw (account, amount) {
+      if (!isNaN(amount)){
+    if (amount >= 0){
 	account.balance -= amount;
+    }
+    else {
+        throw new Exception("Negative number");
+    }
+  }
+  else {
+      throw new Exception("Value is not a number");
+  }
 }
 
 function getBalance (account) {
@@ -43,22 +58,74 @@ var andrewsAccount = createAccount({
 	balance: 0
 });
 
-deposit(andrewsAccount, 100);
-console.log(getBalance(andrewsAccount));
+try{
+ deposit(andrewsAccount, 100);
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
 
-withdraw(andrewsAccount, 11);
-console.log(getBalance(andrewsAccount));
+try{
+ deposit(andrewsAccount, -100);
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
 
-var existingAccount = getAccount('Andrew');
-console.log(getBalance(andrewsAccount));
+try{
+ deposit(andrewsAccount, "100");
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
 
-var jensAccount = createAccount({
-	username: 'jen001',
-	balance: 12
-});
+try{
+ deposit(andrewsAccount, "Test");
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
 
-console.log(accounts);
+try{
+ withdraw(andrewsAccount, 100);
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
 
-var exitingJensAccount = getAccount('jen001');
-console.log(exitingJensAccount);
+try{
+ withdraw(andrewsAccount, -100);
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
 
+try{
+ withdraw(andrewsAccount, "100");
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
+
+try{
+ withdraw(andrewsAccount, "Test");
+ console.log(andrewsAccount);
+}
+catch (e){
+ console.log(e.information);
+ console.log(andrewsAccount);
+}
