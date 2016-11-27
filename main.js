@@ -1,4 +1,8 @@
 var accounts = [ ];
+var account = function (username, balance){
+    this.username = username;
+    this.balance = balance;
+};
 
 function Exception(information){
     this.information = information;
@@ -36,7 +40,7 @@ function getAccountBalance (username) {
 
 }
 
-function deposit (account, amount) {
+function deposit (account,amount) {
   if (!isNaN(amount)){
     var newAmount = +amount;
     if (newAmount >= 0){
@@ -69,81 +73,77 @@ function getBalance (account) {
 	return account.balance;
 }
 
-var andrewsAccount = createAccount({
-	username: 'Andrew',
-	balance: 0
-});
+account.prototype = {
+    
+Exception: function(information){
+    this.information = information;
+    },
+    
+deposit: function(amount) {
+    account = this;
+  if (!isNaN(amount)){
+    var newAmount = +amount;
+    if (newAmount >= 0){
+	account.balance += newAmount;
+    }
+    else {
+        throw new Exception("Negative number");
+    }
+  }
+  else {
+      throw new Exception("Value is not a number");
+  }
+},
 
-/*try{
- deposit(andrewsAccount, 100);
- console.log(andrewsAccount);
+withdraw: function(amount) {
+    account = this;
+      if (!isNaN(amount)){
+    if (amount >= 0){
+	account.balance -= amount;
+    }
+    else {
+        throw new Exception("Negative number");
+    }
+  }
+  else {
+      throw new Exception("Value is not a number");
+  }
+},
+
+getBalance: function() {
+    return this.balance;
+}
+
+};
+
+var acc1 = new account('Andrew', 0);
+var acc2 = new account('Jen', 0);
+
+try{
+acc1.deposit(100);
+console.log(acc1);
 }
 catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
+    console.log(e.information);
+    console.log(acc1);
 }
 
 try{
- deposit(andrewsAccount, -100);
- console.log(andrewsAccount);
+acc2.deposit(-100);
+console.log(acc2);
 }
 catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
+    console.log(e.information);
+    console.log(acc2);
 }
 
 try{
- deposit(andrewsAccount, "100");
- console.log(andrewsAccount);
+acc1.deposit("test");
+console.log(acc1);
 }
 catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
+    console.log(e.information);
+    console.log(acc1);
 }
 
-try{
- deposit(andrewsAccount, "Test");
- console.log(andrewsAccount);
-}
-catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
-}
-
-try{
- withdraw(andrewsAccount, 100);
- console.log(andrewsAccount);
-}
-catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
-}
-
-try{
- withdraw(andrewsAccount, -100);
- console.log(andrewsAccount);
-}
-catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
-}
-
-try{
- withdraw(andrewsAccount, "100");
- console.log(andrewsAccount);
-}
-catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
-}
-
-try{
- withdraw(andrewsAccount, "Test");
- console.log(andrewsAccount);
-}
-catch (e){
- console.log(e.information);
- console.log(andrewsAccount);
-}*/
-
-console.log(getAccountBalance('Andrew'));
+console.log(acc1.getBalance());
